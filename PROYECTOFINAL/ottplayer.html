@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Streaming - Danny TV</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('/RECURSOS/FOTOS/WARFARE.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    
+    .header-image {
+      display: block;
+      width: 60px; /* Un poco más pequeño */
+      height: auto;
+      margin: 10px auto;
+      position: relative;
+      z-index: 10;
+      opacity: 0.9;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); /* Sombra para mejor visibilidad */
+    }
+    
+    .header-image:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    
+    .content-container {
+      height: calc(100vh - 40px);
+      position: relative;
+      background-color: transparent;
+    }
+    
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background-color: transparent;
+    }
+    
+    .app-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      padding: 8px 0;
+      z-index: 10;
+      background: linear-gradient(transparent, rgba(0,0,0,0.3)); /* Degradado sutil */
+    }
+    
+    .tv-button {
+      background-color: #00b7ff;
+      color: white;
+      padding: 6px 18px;
+      text-decoration: none;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .tv-button:hover {
+      background-color: #0095d9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <!-- Logo pequeño -->
+  <img src="/RECURSOS/FOTOS/dannytvlogo.png.png" alt="Danny TV Logo" class="header-image" title="Danny TV">
+  
+  <!-- Contenido principal -->
+  <div class="content-container">
+    <iframe src="http://widget.ottplayer.tv/"></iframe>
+  </div>
+  
+  <!-- Pie de página -->
+  <footer class="app-footer">
+    <a href="/index.html" class="tv-button">Atrás</a>
+  </footer>
+</body>
+</html>

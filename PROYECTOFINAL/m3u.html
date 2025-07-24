@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reproductor M3U - Danny TV</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('/RECURSOS/FOTOS/megan.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: Arial, sans-serif;
+      position: relative;
+      min-height: 100vh;
+      color: white;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(32, 32, 32, 0.7);
+      z-index: -1;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.5);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 900px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #00b7ff;
+      text-shadow: 0 0 10px rgba(0, 183, 255, 0.3);
+    }
+
+    video {
+      width: 100%;
+      height: 450px;
+      margin: 20px 0;
+      border-radius: 12px;
+      background-color: #000;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .channel-list {
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+      margin: 20px 0;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    .channel-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .channel-list::-webkit-scrollbar-thumb {
+      background-color: #00b7ff;
+      border-radius: 4px;
+    }
+
+    .channel-item {
+      padding: 12px 15px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .channel-item:hover {
+      background-color: rgba(0, 183, 255, 0.2);
+      transform: translateX(5px);
+    }
+
+    .channel-item:last-child {
+      border-bottom: none;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    input[type="file"],
+    input[type="url"] {
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="file"]:focus,
+    input[type="url"]:focus {
+      outline: none;
+      border-color: #00b7ff;
+      box-shadow: 0 0 0 2px rgba(0, 183, 255, 0.3);
+    }
+
+    .tv-button {
+      background: linear-gradient(135deg, #6e00ff, #9d00ff);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 15px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .tv-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-atras {
+      background: linear-gradient(135deg, #ff9800, #f44336);
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-atras:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+    }
+
+    .btn-atras::before {
+      content: "←";
+      font-size: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        width: 95%;
+        padding: 20px;
+      }
+      
+      video {
+        height: 300px;
+      }
+      
+      .input-group {
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="btn-atras" onclick="location.href='./index.html'">Inicio</button>
+    
+    <h2>Reproductor de Listas M3U</h2>
+    
+    <div class="input-group">
+      <input type="file" id="m3uFile" accept=".m3u">
+      <input type="url" id="m3uUrl" placeholder="Pega la URL de una lista M3U">
+      <button class="tv-button" onclick="loadM3U()">Cargar Lista</button>
+    </div>
+
+    <ul id="channelList" class="channel-list"></ul>
+    <video id="videoPlayer" controls autoplay></video>
+  </div>
+
+  <script>
+    const channelList = document.getElementById('channelList');
+    const videoPlayer = document.getElementById('videoPlayer');
+
+    function parseM3U(data) {
+      const lines = data.split('\n');
+      const channels = [];
+      
+      for (let i = 0; i < lines.length; i++) {
+        if (lines[i].startsWith('#EXTINF')) {
+          const name = lines[i].split(',')[1]?.trim() || 'Canal sin nombre';
+          const url = lines[i + 1]?.trim();
+          if (url && url.startsWith('http')) {
+            channels.push({ name, url });
+          }
+        }
+      }
+
+      channelList.innerHTML = '';
+      channels.forEach((channel, index) => {
+        const li = document.createElement('li');
+        li.className = 'channel-item';
+        li.innerHTML = `
+          <strong>${index + 1}.</strong> ${channel.name}
+          <div style="font-size:12px;color:#aaa;">${channel.url}</div>
+        `;
+        li.onclick = () => {
+          // Resaltar el canal seleccionado
+          document.querySelectorAll('.channel-item').forEach(item => {
+            item.style.background = 'none';
+          });
+          li.style.background = 'rgba(0, 183, 255, 0.2)';
+          
+          // Reproducir el canal
+          videoPlayer.src = channel.url;
+          videoPlayer.play().catch(e => {
+            alert('Error al reproducir el canal: ' + e.message);
+          });
+        };
+        channelList.appendChild(li);
+      });
+      
+      if (channels.length > 0) {
+        channelList.firstChild.click(); // Auto-selecciona el primer canal
+      }
+    }
+
+    function loadM3U() {
+      const file = document.getElementById('m3uFile').files[0];
+      const url = document.getElementById('m3uUrl').value.trim();
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          parseM3U(e.target.result);
+        };
+        reader.readAsText(file);
+      } else if (url) {
+        fetch(url)
+          .then(res => {
+            if (!res.ok) throw new Error('Error al cargar la URL');
+            return res.text();
+          })
+          .then(parseM3U)
+          .catch(err => {
+            alert('Error: ' + err.message);
+            console.error(err);
+          });
+      } else {
+        alert('Por favor selecciona un archivo o ingresa una URL válida');
+      }
+    }
+
+    // Mejor manejo de errores del video
+    videoPlayer.addEventListener('error', function() {
+      alert('Error al reproducir el video. El formato puede no ser compatible.');
+    });
+  </script>
+</body>
+</html>
