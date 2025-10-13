@@ -2,122 +2,141 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+<<<<<<< HEAD
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <link rel="icon" href="./RECURSOS/FOTOS/LOGO-VIMUX-2.png">
   <title>Vumix</title>
+=======
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danny Tv</title>
+>>>>>>> 41556fb (Resuelvo conflictos)
   <style>
+    /* Fondo con imagen */
     body {
       margin: 0;
       padding: 0;
       width: 100%;
-      height: 100%;
-      background-image: url('../RECURSOS/FOTOS/megan.jpg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      font-family: Arial, sans-serif;
+      height: 100vh;
+      font-family: 'Segoe UI', Arial, sans-serif;
       position: relative;
+      color: white;
+
+      /* 🔹 Imagen de fondo (puedes cambiarla por un link externo o tu propia imagen) */
+      background: url('/PROYECTOFINAL/megan.jpg') no-repeat center center fixed;
+      background-size: cover;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
     }
 
+    /* Capa oscura encima del fondo */
     body::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(32, 32, 32, 0.7);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* oscurece la imagen */
       z-index: -1;
     }
 
     .app-header {
       text-align: center;
       padding: 20px;
+<<<<<<< HEAD
       color: #fff;
       background-color: rgba(51, 50, 50, 0.5);
       border-radius: 0 0 20px 20px;
       margin-bottom: 20px;
+=======
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+>>>>>>> 41556fb (Resuelvo conflictos)
     }
 
     .app-logo {
-      width: 200px;
-      height: 100px;
+      width: 220px;
+      height: auto;
       object-fit: contain;
       margin-bottom: 10px;
-      filter: drop-shadow(0 0 10px rgba(0,183,255,0.5));
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
     }
 
-    .filter-buttons,
-    .app-footer {
+    .app-header h1 {
+      font-size: 36px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    }
+
+    .main-menu {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+      margin-top: 20px;
+      flex: 1;
       justify-content: center;
-      flex-wrap: wrap;
-      margin: 20px auto;
-      gap: 10px;
     }
 
-    .tv-button {
-      background: linear-gradient(135deg, #6e00ff, #9d00ff);
+    .menu-button {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
       color: white;
-      border: none;
-      border-radius: 12px;
-      padding: 15px 30px;
-      font-size: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 18px 40px;
+      font-size: 22px;
+      font-weight: bold;
       cursor: pointer;
-      transition: 0.3s;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .tv-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(110,0,255,0.5);
-    }
-
-    .app-content {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .platform-card {
-      background: rgba(31, 28, 44, 0.8);
-      border-radius: 16px;
-      padding: 20px;
-      margin: 10px;
+      transition: all 0.3s ease;
+      width: 300px;
       text-align: center;
-      width: 240px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-      transition: 0.3s;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
 
-    .platform-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(146, 141, 171, 0.5);
+    .menu-button:hover, 
+    .menu-button:focus {
+      transform: scale(1.07);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 6px 20px rgba(0, 200, 255, 0.6);
+      outline: none;
     }
 
-    .platform-card img {
-      width: 200px;
-      height: 100px;
-      border-radius: 12px;
-      object-fit: cover;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .app-footer {
-      background-color: rgba(0,0,0,0.5);
+    .footer {
       padding: 15px;
-      border-radius: 10px 10px 0 0;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .menu-button {
+        width: 80%;
+        padding: 15px 25px;
+        font-size: 18px;
+      }
+      
+      .app-logo {
+        width: 150px;
+      }
+
+      .app-header h1 {
+        font-size: 28px;
+      }
     }
   </style>
 </head>
 
 <body>
   <div class="app-header">
+<<<<<<< HEAD
     <img src="./RECURSOS/FOTOS/LOGO-VIMUX---PAGINA-WEB.png" alt="Vumix" class="app-logo">
     <h1 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">STREAMING</h1>
     <!-- <button onclick="location.href='../Vumix'" class="tv-button" style="margin-top: 20px;">Entrar</button> -->
@@ -151,17 +170,46 @@
     <!-- <button onclick="location.href='index.html'" class="tv-button">Inicio</button> -->
     <!-- <button onclick="location.href='tv.html'" class="tv-button">TV en Vivo</button>
     <button onclick="location.href='streaming.html'" class="tv-button">Streaming</button> -->
+=======
+
+    <h1>Danny TV</h1>
+  </div>
+
+  <div class="main-menu">
+    <button onclick="location.href='./peliculas.html'" class="menu-button">🎬 Películas</button>
+    <button onclick="location.href='./series.html'" class="menu-button">📺 Series</button>
+    <button onclick="location.href='./recomendadas.html'" class="menu-button">🌎 Recomendadas</button>
+    <button onclick="location.href='./chavo.html'" class="menu-button">🤣 Chavo</button>
+    <button onclick="location.href='./dannytv01.html'" class="menu-button">📂 Todo</button>
+  </div>
+
+  <div class="footer">
+    © 2025 Danny TV - Todos los derechos reservados
+>>>>>>> 41556fb (Resuelvo conflictos)
   </div>
 
   <script>
-    // Función para manejar el clic en las tarjetas
-    document.querySelectorAll('.platform-card').forEach(card => {
-      card.addEventListener('click', function() {
-        // Obtiene el archivo HTML al que debe redirigir
-        const htmlFile = this.getAttribute('onclick').match(/'([^']+)'/)[1];
-        // Redirecciona a la página correspondiente
-        window.location.href = htmlFile;
-      });
+    // Navegación con teclado (para Smart TV)
+    document.addEventListener('keydown', function(e) {
+      const buttons = document.querySelectorAll('.menu-button');
+      let currentIndex = Array.from(buttons).findIndex(btn => btn === document.activeElement);
+      
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        currentIndex = (currentIndex + 1) % buttons.length;
+        buttons[currentIndex].focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        currentIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+        buttons[currentIndex].focus();
+      } else if (e.key === 'Enter' && document.activeElement.classList.contains('menu-button')) {
+        document.activeElement.click();
+      }
+    });
+    
+    // Enfocar el primer botón al cargar
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('.menu-button').focus();
     });
   </script>
 </body>

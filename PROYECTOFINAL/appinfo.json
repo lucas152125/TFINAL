@@ -1,0 +1,19 @@
+{
+  "id": "com.dannytv.app",
+  "version": "1.0.0",
+  "vendor": "DannyDev",
+  "type": "web",
+  "title": "Danny Streamer TV",
+  "main": "./index.html",
+  "icon": "./icon.png",
+  "largeIcon": "./Largelcon.png",
+  "bgImage": "./blue-abstract.jpg",
+  "resolution": "1920x1080",
+  "requiredPermissions": [],
+  "keywords": ["TV", "streaming", "m3u", "video", "media"],
+  "category": "media",
+  "visible": true,
+  "removable": true,
+  "transparent": false,
+  "fullscreen": true
+}
