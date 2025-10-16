@@ -6,7 +6,7 @@
   "title": "Danny Streamer TV",
   "main": "./index.html",
   "icon": "./icon.png",
-  "largeIcon": "/Largelcon.png",
+  "largeIcon": "./Largelcon.png",
   "bgImage": "./blue-abstract.jpg",
   "resolution": "1920x1080",
   "requiredPermissions": [],
